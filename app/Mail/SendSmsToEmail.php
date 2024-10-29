@@ -13,11 +13,9 @@ class SendSmsToEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $user;
 
-    public function __construct(User $user)
+    public function __construct(protected User $user)
     {
-        $this->user = $user;
     }
 
     public function envelope(): Envelope

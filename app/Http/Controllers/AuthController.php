@@ -59,11 +59,15 @@ public function register(AuthRegisterRequest $request)
         }
       }
   }
-  public function editForm(){
-    $user = Auth::user();
+  public function editForm($id){
+    $user = User::findorFail($id);
+    if($user->id !== Auth::id()){
+        return redirect()->route('my.profile');
+    } else{
     $posts = Post::with('comments')->get();
     return view('auth.edit',compact('user','posts'));
   }
+}
   public function update(AuthEditRequest $request, ) 
   {
     $id = Auth::id();
@@ -84,18 +88,15 @@ public function register(AuthRegisterRequest $request)
       $user->save();
   
      
-      if ($request->hasFile("avatar")) {
-          if ($user->image && $user->image->image_path) {
-              $this->deleteAvatar($user->image->image_path);
-          }
-  
-          $uploadedAvatar = $this->uploadAvatar($request->file('avatar'));
-          
-          $user->image()->updateOrCreate(
-              ['user_id' => $user->id],
-              ['image_path' => $uploadedAvatar]
-          );
-      }
+      if($request->hasFile("avatar")){
+        if($user->image->image_path){
+            $this->deleteAvatar($user->image->image_path);
+        }
+        $uploadedAvatar = $this->uploadAvatar($request->file('avatar'));
+        $user->image()->update([
+            'image_path'=> $uploadedAvatar
+        ]);
+    }
   
       return redirect()->route('my.profile');
   }
@@ -133,14 +134,21 @@ public function notify(){
    $notify = Auth::user()->notifications;
    return view('auth.notify',compact('notify'));
 }
-public function userprofile() {
-    $user =Auth::user(); 
-    $posts = Post::all();
-    return view('posts.profile', compact('user','posts'));
+public function userprofile($id) {
+    $user = User::where('username', $id)->first();
+    if(!$user){
+        abort(404);
+    }
+    return view("posts.profile", compact("user"));
 }
-public function my_profile(){
-    $posts = Auth::user()->posts()->orderBy("created_at","desc")->paginate(5);
-    return view("auth.myprofile", compact("posts"));
+public function my_profile()
+{
+    $user = auth()->user(); 
+
+    $posts = $user->posts()->orderBy("created_at", "desc")->paginate(4); 
+    
+    return view("auth.myprofile", compact("user", "posts"));
 }
+
 
 }

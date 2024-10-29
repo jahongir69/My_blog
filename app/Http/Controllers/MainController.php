@@ -8,15 +8,29 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class MainController extends Controller
-{
-    public function dashboard(){
-        $posts = Post::all();
-        return view('welcome',compact('posts'));
+{public function dashboard()
+    {
+        $query = Post::latest();
+    
+        if (auth()->check()) {
+            $followingIds = auth()->user()->following()->pluck('users.id');
+            $query->whereIn('user_id', $followingIds);
+        }
+    
+        $posts = $query->get();
+    
+        return view('welcome', compact('posts'));
     }
-    public function index(){
-        $user =Auth::user(); 
-        $posts = Post::with('comments')->get();
-        return view('main',compact('user','posts'));
+    
+    
+    public function index()
+    {
+        $user = auth()->user();
+        $followingIds = $user->following()->pluck('id');
+        $posts = Post::whereIn('user_id', $followingIds)->with('comments')->get(); 
+    
+        return view('main', compact('user', 'posts'));
     }
+    
     
 }

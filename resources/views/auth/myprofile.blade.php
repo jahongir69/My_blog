@@ -15,7 +15,7 @@
                 <div class="mt-4 sm:mt-0 sm:ml-auto">
                     <!-- Edit Profile button for current user's profile -->
                     <!-- Assuming you will check if this is the current user's profile -->
-                    <a href="{{route('editprofile')}}"
+                    <a href="{{route('editprofile',auth()->user()->id)}}"
                         class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
                         Edit Profile
                     </a>

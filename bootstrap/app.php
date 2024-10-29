@@ -14,7 +14,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-         'register' => RegisterMiddleware::class
+         'register' => RegisterMiddleware::class,
+         'post' => PostMiddleware::class, 
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

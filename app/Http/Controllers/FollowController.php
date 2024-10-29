@@ -7,15 +7,19 @@ use App\Notifications\NewFollowerNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class FollowController extends Controller{
-    public function follow($id){
-        $user = User::find($id);
-         $user->following()->attach($user->id);
-         $user->notify(new NewFollowerNotification(Auth::user()));
-          return redirect()->back();
+     public function follow(User $user)
+     {
+         if (auth()->user()->id !== $user->id) {
+             auth()->user()->following()->attach($user->id);
+             $user->notify(new NewFollowerNotification(auth()->user()));
+         }
+         
+         return back();
      }
+     
      public function unfollow($id){
-        $user = User::find($id);
-         $user->following()->detach($user->id);
-          return redirect()->back();
+          $userToUnfollow = User::findOrFail($id);
+          auth()->user()->following()->detach($userToUnfollow->id);
+          return redirect()->back()->with('success', 'You have unfollowed ' . $userToUnfollow->name);
      }
 }

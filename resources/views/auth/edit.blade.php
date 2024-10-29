@@ -49,7 +49,8 @@
                         <p style="color: red">{{'* ' . $message}}</p>
                     @enderror
                 </div>
-                <img src="{{asset('/storage' . '/' . auth()->user()->image->image_path)}}" width="150px" alt="User's avatar">
+                <img src="{{ asset('storage/' . auth()->user()->image->image_path) }}" width="150px" alt="User's avatar">
+
                 <hr class="my-6">
                 <div class="flex items-center space-x-4">
                     <div class="mb-4 w-1/2">

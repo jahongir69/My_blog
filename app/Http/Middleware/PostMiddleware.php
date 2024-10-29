@@ -17,7 +17,7 @@ class PostMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if(Auth::check()){
-            return redirect()->route('loginForm');
+            return redirect()->route('home');
         }
         return $next($request);
     }
