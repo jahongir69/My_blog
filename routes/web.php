@@ -34,3 +34,18 @@ Route::get('/posts/{post}', [PostController::class,'show'])->name('posts.show');
 Route::post('/follow/{user}',[FollowController::class,'follow'])->name('follow');
 Route::delete('/follow/{id}', [FollowController::class, 'unfollow'])->name('unfollow');
 Route::get('/notify',[FollowController::class,'notify'])->name('notify');
+use App\Http\Controllers\Auth\RegisterController;
+
+Route::get('/register', [RegisterController::class, 'show'])->name('register.form')->middleware('guest');
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
+Route::get('/profile', function () {
+    return view('profile');
+})->middleware('auth')->name('profile');
+
+
+Route::get('/register', [RegisterController::class, 'show'])->name('register.form');
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
+
+
+Route::post('/follow/{user}', [FollowController::class, 'follow'])->name('follow');
+Route::post('/unfollow/{user}', [FollowController::class, 'unfollow'])->name('unfollow');

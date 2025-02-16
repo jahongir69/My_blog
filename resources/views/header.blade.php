@@ -112,7 +112,7 @@
                 <a style="margin-left:67%; margin-top:16px;" href="{{route('loginForm')}}"
                 class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">Login</a>
                 <a style="height:34px; width:12px; margin-left: 10px; margin:0; margin-top:17px; padding: 5px 10px; width: auto; display: inline-block; text-align: center;"
-                href="{{route('registerForm')}}"
+                href="{{route('register')}}"
                 class="bg-indigo-600 text-white rounded-md text-sm font-medium hover:bg-indigo-700">Register</a>
             @endif
         </div>
@@ -143,9 +143,9 @@
                     class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Create
                     Post</a>
             @else
-                <a href="{{ route('loginForm') }}"
+                <a href="{{ route('login') }}"
                     class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Login</a>
-                <a href="{{ route('registerForm') }}"
+                <a href="{{ route('register') }}"
                     class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Register</a>
                 <a href="{{ route('home') }}"
                     class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Home</a>

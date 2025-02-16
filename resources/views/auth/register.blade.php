@@ -3,68 +3,52 @@
 @section('title', 'Register')
 
 @section('content')
-
-<main class="flex-grow flex items-center justify-center">
-    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h1 class="text-2xl font-bold mb-6 text-center">Register</h1>
-        <form action="{{route('register')}}" method="POST" enctype="multipart/form-data">
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card shadow-lg p-4 w-50" style="border-radius: 10px; background-color: #f8f9fa;">
+        <h2 class="text-center text-primary mb-4">Ro‘yxatdan o‘tish</h2>
+        
+        <form action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <div class="mb-4">
-                <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                <input type="text" id="name" name="name" value="{{old('name')}}" required
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            
+            <div class="mb-3">
+                <label for="name" class="form-label fw-bold">Ism</label>
+                <input type="text" name="name" class="form-control border-primary" value="{{ old('name') }}">
+                @error('name') <small class="text-danger">{{ $message }}</small> @enderror
             </div>
-            <div>
-                @error('name')
-                    <p style="color: red">{{'* ' . $message}}</p>
-                @enderror
+            
+            <div class="mb-3">
+                <label for="username" class="form-label fw-bold">Foydalanuvchi nomi</label>
+                <input type="text" name="username" class="form-control border-primary" value="{{ old('username') }}">
+                @error('username') <small class="text-danger">{{ $message }}</small> @enderror
             </div>
-            <div class="mb-4">
-                <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-                <input type="text" id="username" name="username" value="{{old('username')}}" required
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            
+            <div class="mb-3">
+                <label for="email" class="form-label fw-bold">Email</label>
+                <input type="email" name="email" class="form-control border-primary" value="{{ old('email') }}">
+                @error('email') <small class="text-danger">{{ $message }}</small> @enderror
             </div>
-            <div>
-                @error('username')
-                    <p style="color: red">{{'* ' . $message}}</p>
-                @enderror
+            
+            <div class="mb-3">
+                <label for="password" class="form-label fw-bold">Parol</label>
+                <input type="password" name="password" class="form-control border-primary">
+                @error('password') <small class="text-danger">{{ $message }}</small> @enderror
             </div>
-            <div class="mb-4">
-                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                <input type="email" id="email" name="email" value="{{old('email')}}" required
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            
+            <div class="mb-3">
+                <label for="password_confirmation" class="form-label fw-bold">Parolni tasdiqlang</label>
+                <input type="password" name="password_confirmation" class="form-control border-primary">
             </div>
-            <div>
-                @error('email')
-                    <p style="color: red">{{'* ' . $message}}</p>
-                @enderror
+            
+            <div class="mb-3">
+                <label for="avatar" class="form-label fw-bold">Profil rasmi (ixtiyoriy)</label>
+                <input type="file" name="avatar" class="form-control border-primary">
+                @error('avatar') <small class="text-danger">{{ $message }}</small> @enderror
             </div>
-            <div class="mb-4">
-                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                <input type="password" id="password" name="password" value="{{old('password')}}" required
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg">Ro‘yxatdan o‘tish</button>
             </div>
-            <div>
-                @error('password')
-                    <p style="color: red">{{'* ' . $message}}</p>
-                @enderror
-            </div>
-            <div class="mb-4">
-                <label for="avatar" class="block text-sm font-medium text-gray-700">Avatar</label>
-                <input type="file" id="avatar" name="avatar" accept="image/*"
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-            </div>
-            <div>
-                @error('avatar')
-                    <p style="color: red">{{'* ' . $message}}</p>
-                @enderror
-            </div>
-            <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Register</button>
         </form>
-        <p class="mt-4 text-center text-sm text-gray-600">
-            Already have an account? <a href="{{route('loginForm')}}" class="text-indigo-600 hover:text-indigo-500">Login</a>
-        </p>
     </div>
-</main>
-
+</div>
 @endsection

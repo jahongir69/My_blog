@@ -5,8 +5,15 @@
    <main class="flex-grow container mx-auto px-4 py-8">
         <article class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-md">
             <h1 class="text-3xl font-bold mb-4">{{ $post->title }}</h1>
-            <img src="{{ asset('/storage' . '/' . $post->image->image_path) }}" alt="Post Image"
-                class="w-full h-64 object-cover rounded-lg mb-4">
+
+            @if ($post->image && $post->image->image_path)
+                <img src="{{ asset('/storage/' . $post->image->image_path) }}" alt="Post Image"
+                    class="w-full h-64 object-cover rounded-lg mb-4">
+            @else
+                <img src="{{ asset('/default-post.png') }}" alt="Default Post Image"
+                    class="w-full h-64 object-cover rounded-lg mb-4">
+            @endif
+
             <p class="text-gray-700 mb-6">{{ $post->description }}</p>
 
             @if(auth()->check() && auth()->user()->id == $post->user_id)
@@ -34,7 +41,6 @@
                                 <form action="{{ route('comments.destroy', $comment->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-
 
                                     <button type="submit" class="text-red-500 hover:text-red-700">Delete</button>
 
